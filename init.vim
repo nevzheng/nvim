@@ -9,7 +9,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-sensible'
 
 """ Themes:
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim' 
 
 """ GUI Tweaks:
 " NerdTree
@@ -170,12 +171,12 @@ let g:rustfmt_autosave = 1
 set mouse=a
 
 " Theme Selection
-colorscheme gruvbox
-set background=dark
+"colorscheme gruvbox
+"set background=dark
 
 " Optional Support for Base16
-" if filereadable("expand("~.vimrc_background")")
-"     let base16colorspace=256
-"     source ~/.vimrc_background
-" endif
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 
