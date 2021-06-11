@@ -1,0 +1,67 @@
+" Following:https://github.com/fatih/vim-go-tutorial#quick-setup 
+
+" Go from locationlists and quick fix lists to just qf
+let g:go_list_type = "quickfix"
+
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" Always use <leader>-b
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+" Use the Coverage Tool
+" autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+" Use GoImports: Rewrites your imports
+" Slow for larger codebases
+let g:go_fmt_command = "goimports"
+
+" Cool Tricks
+" [d/y/x]if: manipulate innerfunction
+" [d/y/x]af: manipulate fucntion
+" cif, sif, caf, etc...
+" snippets: errp, fn, ff, ln, lf json, when defining struct member
+" Can Swap Between test and source files. look up when needed
+
+" Configure Syntax Highlighting
+" WARNING: May affect performance
+let g:go_highlight_types             = 1
+let g:go_highlight_fields            = 1
+let g:go_highlight_functions         = 1
+let g:go_highlight_function_calls    = 1
+let g:go_highlight_operators         = 1
+let g:go_highlight_extra_types       = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags     = 1
+
+
+" Linting
+let g:go_metalinter_enabled  = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
+
+" Change which linters run on autosave
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+" Max Lint Deadline
+let g:go_metalinter_deadline = "10s"
+
+
+" Get Type info with <leader>i
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+let g:go_auto_type_info = 1
+
+" highlight matching ids
+let g:go_auto_sameids = 1
+set updatetime=100
+
+" Useful refactors
+" :GoRename, place cursor and type. OR specify identifier
+" :
